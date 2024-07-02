@@ -1,6 +1,20 @@
 #include "Common.hpp"
 
+/**
+ * @param filePath
+ *
+ * @brief Compresses text in a file.
+ *
+ * @todo Parse the dest file as arg as well.
+ */
 static void compressFile(const std::string &filePath);
+/**
+ * @param filePath
+ *
+ * @brief Decompresses text in a file.
+ *
+ * @todo Parse the dest file as arg as well.
+ */
 static void decompressFile(const std::string &filePath);
 
 int main(int argc, char **argv)
@@ -46,6 +60,9 @@ static void compressFile(const std::string &filePath)
         ERROR("Unable to open file: '" << filePath << "' for reading. Aborting.");
 
     std::string decompressedContent = parseFileContent(filePath);
+    //! Because we have to encode the text with our custom LUT before.
+    decompressedContent = transitionEncryption(decompressedContent);
+
     BinContainer compressedContent = compressFileContent(decompressedContent);
     std::string destFileName = {};
 
@@ -69,6 +86,8 @@ static void decompressFile(const std::string &filePath)
         ERROR("Unable to read from file: '" << filePath << "'. Aborting.");
 
     std::string decompressedText = decompressBinaryToText(compressedContent);
+    // It was still encrypted from the binary file, now it isn't anymore.
+    decompressedText = transitionEncryption(decompressedText);
     std::string destFileName = {};
 
     std::printf("Enter the destination filename: ");
