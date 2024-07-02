@@ -1,7 +1,7 @@
 #include <fstream>
-#include <memory>
+#include <new>
 
-#include "BinContainer.hpp"
+#include "Common.hpp"
 
 BinContainer::BinContainer()
 {
@@ -102,7 +102,17 @@ bool BinContainer::readFromFile(const std::string &filePath)
     m_RawData.clear();
     m_RawData.reserve(fileSize);
 
-    char *buf = new char[fileSize];
+    char *buf = nullptr;
+
+    try
+    {
+        buf = new char[fileSize];
+    }
+    catch (const std::bad_alloc &e)
+    {
+        std::cerr << "[ERROR]: Unable to allocate memory of size: " << fileSize << ". Aborting.\n";
+        std::exit(1);
+    }
 
     srcFile.read(buf, fileSize);
 
