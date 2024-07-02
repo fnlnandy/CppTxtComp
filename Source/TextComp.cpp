@@ -9,10 +9,6 @@
 static void compressFile(const std::string &filePath);
 static void decompressFile(const std::string &filePath);
 
-extern std::string parseFileContent(const std::string &filePath);
-extern BinContainer compressFileContent(const std::string &decodedText);
-extern std::string decompressBinaryToText(BinContainer &encodedData);
-
 int main(int argc, char **argv)
 {
     argc--, argv++;
