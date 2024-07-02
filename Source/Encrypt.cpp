@@ -1,8 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
-#include "TextAnalysis.hpp"
+#include "Common.hpp"
 
 std::string transitionEncryption(const std::string &prevState)
 {
@@ -50,8 +46,7 @@ std::string parseFileContent(const std::string &filePath)
 
     if (!src.is_open())
     {
-        std::cerr << "[ERROR]: Unable to open file: '" << filePath << "'. Aborting.\n";
-        std::exit(1);
+        ERROR("Unable to open file: '" << filePath << "'. Aborting.");
     }
 
     std::stringstream ss = {};

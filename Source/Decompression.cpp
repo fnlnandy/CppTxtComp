@@ -1,5 +1,4 @@
-#include "BinContainer.hpp"
-#include "TextAnalysis.hpp"
+#include "Common.hpp"
 
 static Dict<char, uint> deduceEncodingTableFromContent(BinContainer &encodedData)
 {

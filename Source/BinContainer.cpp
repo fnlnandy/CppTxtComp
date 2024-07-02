@@ -111,8 +111,7 @@ bool BinContainer::readFromFile(const std::string &filePath)
     }
     catch (const std::bad_alloc &e)
     {
-        std::cerr << "[ERROR]: Unable to allocate memory of size: " << fileSize << ". Aborting.\n";
-        std::exit(1);
+        ERROR("Unable to allocate memory of size: " << fileSize << ". Aborting.");
     }
 
     srcFile.read(buf, fileSize);

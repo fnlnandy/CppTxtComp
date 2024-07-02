@@ -1,7 +1,4 @@
-#include <iostream>
-
-#include "BinContainer.hpp"
-#include "TextAnalysis.hpp"
+#include "Common.hpp"
 
 static void writeEncodingTableHeader(const Dict<char, uint> &srcEncodingTable, BinContainer &dest)
 {

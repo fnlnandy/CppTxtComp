@@ -1,6 +1,4 @@
-#include <iostream>
-
-#include "TextAnalysis.hpp"
+#include "Common.hpp"
 
 static Dict<char, uint> getCharacterUseStats(const std::string &toAnalyze)
 {

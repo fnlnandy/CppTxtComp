@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cstring>
-#include <fstream>
-
-#include "TextComp.hpp"
-#include "BinContainer.hpp"
+#include "Common.hpp"
 
 static void compressFile(const std::string &filePath);
 static void decompressFile(const std::string &filePath);
@@ -34,10 +28,7 @@ int main(int argc, char **argv)
 
     // Theoritically should never happen.
     if (fileName.empty())
-    {
-        std::cerr << "[ERROR]: No filename provided. Aborting.\n";
-        std::exit(1);
-    }
+        ERROR("No filename provided. Aborting.");
 
     if (isCompMode)
         compressFile(fileName);
@@ -52,10 +43,7 @@ static void compressFile(const std::string &filePath)
     std::ifstream compressed = std::ifstream(filePath);
 
     if (!compressed.is_open())
-    {
-        std::cerr << "[ERROR]: Unable to open file '" << filePath << "' for reading. Aborting.\n";
-        std::exit(1);
-    }
+        ERROR("Unable to open file: '" << filePath << "' for reading. Aborting.");
 
     std::string decompressedContent = parseFileContent(filePath);
     BinContainer compressedContent = compressFileContent(decompressedContent);
@@ -67,12 +55,9 @@ static void compressFile(const std::string &filePath)
     bool successInWriting = compressedContent.writeIntoFile(destFileName);
 
     if (!successInWriting)
-    {
-        std::cerr << "[ERROR]: Unable to write into file '" << destFileName << "'. Aborting.\n";
-        std::exit(1);
-    }
+        ERROR("Unable to write into file: '" << destFileName << "'. Aborting.");
 
-    std::printf("[INFO]: '%s' has been compressed into: '%s'.\n", filePath.c_str(), destFileName.c_str());
+    INFO("'" << filePath << "' has been compressed into: '" << destFileName << "'.");
 }
 
 static void decompressFile(const std::string &filePath)
@@ -81,10 +66,7 @@ static void decompressFile(const std::string &filePath)
     bool successInReading = compressedContent.readFromFile(filePath);
 
     if (!successInReading)
-    {
-        std::cerr << "[ERROR]: Unable to read from file: '" << filePath << "'. Aborting.\n";
-        std::exit(1);
-    }
+        ERROR("Unable to read from file: '" << filePath << "'. Aborting.");
 
     std::string decompressedText = decompressBinaryToText(compressedContent);
     std::string destFileName = {};
@@ -95,13 +77,10 @@ static void decompressFile(const std::string &filePath)
     std::ofstream destFileStream = std::ofstream(destFileName);
 
     if (!destFileStream.is_open())
-    {
-        std::cerr << "[ERROR]: Unable to open file '" << destFileName << "' for writing. Aborting.\n";
-        std::exit(1);
-    }
+        ERROR("Unable to open file: '" << destFileName << "' for writing. Aborting.");
 
     destFileStream.write(decompressedText.c_str(), decompressedText.length());
     destFileStream.flush();
 
-    std::printf("[INFO]: '%s' has been decompressed into '%s'.\n", filePath.c_str(), destFileName.c_str());
+    INFO("'" << filePath << "' has been compressed into '" << destFileName << "'.");
 }
