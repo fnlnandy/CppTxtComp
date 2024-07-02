@@ -1,10 +1,22 @@
 #include "Common.hpp"
 
+/**
+ * @param srcEncodingTable
+ * @param dest
+ *
+ * @brief Writes the encoding
+ * table as sequential binary data
+ * into the dest container.
+ *
+ * @warning This changes dest.
+ */
 static void writeEncodingTableHeader(const Dict<char, uint> &srcEncodingTable, BinContainer &dest)
 {
     for (auto it = srcEncodingTable.begin(); it != srcEncodingTable.end(); ++it)
         dest.push8Bits(static_cast<uint8_t>(it->first)); // We write the key, not the value.
 
+    // To tell the decompressor to terminate early
+    // when he reads the header.
     if (srcEncodingTable.size() < 15)
         dest.push8Bits(0);
 }
@@ -25,6 +37,8 @@ BinContainer compressFileContent(const std::string &decodedText)
         {
             if (c == it->first)
             {
+                // Telling the decompressor to change
+                // encoding.
                 if (!isEncodedMode)
                 {
                     compressed.push8Bits(0);
