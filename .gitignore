@@ -1,0 +1,4 @@
+textcomp*
+*.o
+.vscode
+Build
