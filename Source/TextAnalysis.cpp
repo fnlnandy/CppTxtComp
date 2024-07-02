@@ -1,5 +1,14 @@
 #include "Common.hpp"
 
+/**
+ * @param toAnalyze
+ *
+ * @brief Gets the use stats of every
+ * character inside an std::string.
+ *
+ * @return The character use stats.
+ * @returns Dict<char, uint>
+ */
 static Dict<char, uint> getCharacterUseStats(const std::string &toAnalyze)
 {
     Dict<char, uint> statsDict;
@@ -10,6 +19,17 @@ static Dict<char, uint> getCharacterUseStats(const std::string &toAnalyze)
     return statsDict;
 }
 
+/**
+ * @param toAnalyze
+ * @param maxIter
+ *
+ * @brief Gets the most used characters
+ * inside a string.
+ *
+ * @return The most used characters, and their
+ * use stats.
+ * @returns Dict<char, uint>
+ */
 static Dict<char, uint> getMostUsedChars(const std::string &toAnalyze, const uint maxIter)
 {
     using iter = Dict<char, uint>::iterator;

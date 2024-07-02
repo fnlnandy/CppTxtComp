@@ -2,6 +2,7 @@
 
 std::string transitionEncryption(const std::string &prevState)
 {
+    //! @brief LUT for the encryption.
     const Dict<char, char> encryptionDict =
         {
             {'a', 'z'},
