@@ -98,11 +98,6 @@ bool BinContainer::readFromFile(const std::string &filePath)
     // Clear the eof bit.
     srcFile.clear();
 
-    // Clear any previous data and reserve the new
-    // size.
-    m_RawData.clear();
-    m_RawData.reserve(fileSize);
-
     char *buf = nullptr;
 
     try
@@ -116,8 +111,7 @@ bool BinContainer::readFromFile(const std::string &filePath)
 
     srcFile.read(buf, fileSize);
 
-    for (uint i = 0; i < fileSize; ++i)
-        m_RawData.push_back(buf[i]);
+    m_RawData = {buf, buf + fileSize};
 
     delete[] buf;
 
