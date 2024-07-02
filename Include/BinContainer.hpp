@@ -12,7 +12,6 @@ private:
     uint32_t m_LastIdx;
     bool m_IsHalfPushState;
     bool m_IsHalfPopState;
-    bool m_IsHalfPeekState;
 
 public:
     BinContainer();

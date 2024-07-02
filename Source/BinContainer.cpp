@@ -7,7 +7,8 @@ BinContainer::BinContainer()
 {
     m_RawData = {};
     m_LastIdx = 0;
-    m_IsHalfPushState = m_IsHalfPopState = m_IsHalfPeekState = false;
+    m_IsHalfPushState = false;
+    m_IsHalfPopState = false;
 }
 
 BinContainer::BinContainer(const std::initializer_list<uint8_t> &elems) : BinContainer()
